@@ -74,12 +74,16 @@ nav.scrolled {
   max-width: 1160px; margin: 0 auto; padding: 0 36px;
 }
 .nav-logo {
-  font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.5rem;
-  color: var(--blue); cursor: pointer; letter-spacing: -0.025em; text-decoration: none;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--blue);
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  text-decoration: none;
   transition: opacity 0.2s;
 }
 .nav-logo:hover { opacity: 0.75; }
-.nav-logo .accent { color: var(--orange); }
 .nav-links { display: flex; gap: 4px; align-items: center; }
 .nav-link {
   font-size: 0.875rem; font-weight: 500; color: var(--ink2);
@@ -222,15 +226,43 @@ nav.scrolled {
 .section-label::before { content: ''; width: 22px; height: 2px; background: var(--orange); border-radius: 2px; }
 
 /* ── CLIENTS ── */
-.clients { padding: 72px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); }
+.clients { padding: 72px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); overflow: hidden; }
 .clients-label { font-size: 0.78rem; font-weight: 600; color: var(--ink3); letter-spacing: 0.13em; text-transform: uppercase; text-align: center; margin-bottom: 36px; }
-.clients-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 0; align-items: center; }
+.clients-track-wrap { overflow: hidden; position: relative; }
+.clients-track-wrap::before,
+.clients-track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.clients-track-wrap::before { left: 0; background: linear-gradient(90deg, var(--white), transparent); }
+.clients-track-wrap::after { right: 0; background: linear-gradient(-90deg, var(--white), transparent); }
+.clients-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: clientsScroll 28s linear infinite;
+}
+.clients-track:hover { animation-play-state: paused; }
+@keyframes clientsScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
 .client-pill {
-  font-family: 'Fraunces', serif; font-weight: 700; font-size: 0.98rem;
-  color: var(--ink3); letter-spacing: 0.02em;
-  padding: 10px 24px; border-radius: 100px;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.04rem;
+  color: var(--ink3);
+  letter-spacing: 0.02em;
+  padding: 12px 28px;
+  border-radius: 100px;
   border: 1.5px solid var(--border);
-  margin: 4px;
+  margin: 4px 8px;
+  white-space: nowrap;
   transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
   cursor: default;
 }
@@ -267,7 +299,7 @@ nav.scrolled {
 .expertise-card:hover .expertise-arrow { opacity: 1; transform: translateX(0); }
 
 /* ── TESTIMONIALS ── */
-.testimonials-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-top: 52px; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 52px; }
 .testimonial-card {
   background: var(--white); border: 1px solid var(--border);
   border-radius: 22px; padding: 36px;
@@ -276,7 +308,7 @@ nav.scrolled {
 .testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
 .testimonial-quote {
   font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
-  font-size: 1.08rem; color: var(--ink2); line-height: 1.72; margin-bottom: 28px;
+  font-size: 1.02rem; color: var(--ink2); line-height: 1.75; margin-bottom: 28px;
 }
 .testimonial-quote::before { content: '\201C'; color: var(--blue); font-size: 2.8rem; line-height: 0.5; vertical-align: -0.65rem; margin-right: 3px; font-style: normal; }
 .testimonial-author { display: flex; align-items: center; gap: 14px; }
@@ -464,8 +496,7 @@ textarea.form-input { resize: vertical; }
 /* ── FOOTER ── */
 footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-.footer-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.3rem; color: var(--blue); letter-spacing: -0.025em; }
-.footer-logo .accent { color: var(--orange); }
+.footer-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.3rem; color: var(--blue); letter-spacing: 0.01em; }
 .footer-links { display: flex; gap: 4px; flex-wrap: wrap; }
 .footer-link {
   font-size: 0.84rem; color: var(--ink3); padding: 6px 12px; border-radius: 8px;
@@ -533,8 +564,9 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
 <!-- ── NAV ── -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a class="nav-logo" onclick="navigate('home')" href="#">NOV<span class="accent">I</span>JI</a>
+    <a class="nav-logo" onclick="navigate('home')" href="#">NOVIJI</a>
     <div class="nav-links">
+      <button class="nav-link" onclick="navigate('home')">Accueil</button>
       <button class="nav-link" onclick="navigate('strategy')">Stratégie</button>
       <button class="nav-link" onclick="navigate('innovation')">Innovation</button>
       <button class="nav-link" onclick="navigate('training')">Formation</button>
@@ -583,7 +615,20 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
             <button class="btn-secondary" onclick="document.getElementById('expertise-home').scrollIntoView({behavior:'smooth'})">
               Nos offres
             </button>
-          </div
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-num">+15</div>
+              <div class="hero-stat-label">Organisations accompagnées</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">3</div>
+              <div class="hero-stat-label">Domaines d'expertise</div>
+            </div>
+            <div>
+              <div class="hero-stat-num">10+</div>
+              <div class="hero-stat-label">Années d'expérience</div>
+            </div>
           </div>
         </div>
         <div class="hero-photos">
@@ -598,7 +643,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
           </div>
           <div class="hero-photo-badge">
             <div class="hero-photo-badge-dot"></div>
-            <span>Missions en France & Europe</span>
+            <span>Missions en France et en Europe</span>
           </div>
         </div>
       </div>
@@ -609,21 +654,22 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   <section class="clients">
     <div class="container">
       <p class="clients-label">Nous avons accompagné leurs transformations</p>
-  <div class="clients-track">
-    <div class="client-pill">Veolia</div>
-    <div class="client-pill">Groupama</div>
-    <div class="client-pill">MGEN</div>
-    <div class="client-pill">Pellenc ST</div>
-    <div class="client-pill">Radiance Mutuelle</div>
-    <div class="client-pill">Exel Industries</div>
-    <div class="client-pill">Veolia</div>
-    <div class="client-pill">Groupama</div>
-    <div class="client-pill">MGEN</div>
-    <div class="client-pill">Pellenc ST</div>
-    <div class="client-pill">Radiance Mutuelle</div>
-    <div class="client-pill">Exel Industries</div>
-  </div>
-</div>
+    </div>
+    <div class="clients-track-wrap">
+      <div class="clients-track">
+        <div class="client-pill">Veolia</div>
+        <div class="client-pill">Groupama</div>
+        <div class="client-pill">MGEN</div>
+        <div class="client-pill">Pellenc ST</div>
+        <div class="client-pill">Radiance Mutuelle</div>
+        <div class="client-pill">Exel Industries</div>
+        <div class="client-pill">Veolia</div>
+        <div class="client-pill">Groupama</div>
+        <div class="client-pill">MGEN</div>
+        <div class="client-pill">Pellenc ST</div>
+        <div class="client-pill">Radiance Mutuelle</div>
+        <div class="client-pill">Exel Industries</div>
+      </div>
     </div>
   </section>
 
@@ -691,42 +737,32 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card reveal reveal-delay-1">
-          <p class="testimonial-quote">Un accompagnement remarquable qui nous a permis de redéfinir notre vision stratégique tout en mobilisant l'ensemble des équipes autour d'un projet commun.</p>
+          <p class="testimonial-quote">NOVIJI nous a aidés à transformer une période de crise en véritable opportunité stratégique. L'accompagnement a été rigoureux, humain et parfaitement calibré à notre contexte.</p>
           <div class="testimonial-author">
-            <div class="testimonial-avatar">DM</div>
+            <div class="testimonial-avatar">D</div>
             <div>
-              <div class="testimonial-name">Directeur Marketing</div>
-              <div class="testimonial-role">Assurance</div>
+              <div class="testimonial-name">Directeur</div>
+              <div class="testimonial-role">Groupe industriel</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card reveal reveal-delay-2">
-          <p class="testimonial-quote">NOVIJI nous a aidés à transformer des contraintes réglementaires complexes en opportunités d'innovation. Une approche pragmatique et profondément humaine.</p>
+          <p class="testimonial-quote">Une approche singulière : partir de l'existant, impliquer les équipes, avancer par étapes. Le résultat est un plan d’action que nos collaborateurs ont vraiment envie de mettre en œuvre.</p>
           <div class="testimonial-author">
-            <div class="testimonial-avatar">RD</div>
+            <div class="testimonial-avatar">DT</div>
             <div>
-              <div class="testimonial-name">Responsable Innovation</div>
+              <div class="testimonial-name">Directrice Transformation</div>
               <div class="testimonial-role">Mutuelle</div>
             </div>
           </div>
         </div>
         <div class="testimonial-card reveal reveal-delay-3">
-          <p class="testimonial-quote">La méthode NOVIJI nous a permis d'avancer par étapes concrètes et de sécuriser chaque décision. Un vrai partenaire dans la durée.</p>
+          <p class="testimonial-quote">La formation-action animée par Flavie a transformé la façon dont nos managers abordent l'incertitude. Un investissement dont nous voyons les effets au quotidien.</p>
           <div class="testimonial-author">
-            <div class="testimonial-avatar">CP</div>
-            <div>
-              <div class="testimonial-name">CEO</div>
-              <div class="testimonial-role">Industrie</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card reveal reveal-delay-4">
-          <p class="testimonial-quote">Des ateliers d'idéation qui ont véritablement transformé notre manière de collaborer. Les équipes sont reparties avec des outils concrets et une nouvelle énergie.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">AL</div>
+            <div class="testimonial-avatar">DRH</div>
             <div>
               <div class="testimonial-name">DRH</div>
-              <div class="testimonial-role">Industrie</div>
+              <div class="testimonial-role">ETI industrielle</div>
             </div>
           </div>
         </div>
@@ -783,7 +819,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div>
           <div class="page-hero-tag">Domaine d'expertise</div>
           <h1 class="display">Stratégie &<br><span class="serif-italic">Organisation</span></h1>
-          <p>Transformer la complexité en avantage compétitif. Nous aidons les organisations à définir leur cap, structurer leurs équipes et conduire le changement avec méthode.</p>
+          <p>Nous accompagnons les organisations dans l'analyse de situations complexes et la co-construction de plans de transformation fédérateurs et opérationnels.</p>
         </div>
         <div class="page-hero-photo reveal reveal-delay-2">
           <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=960&q=80&fit=crop" alt="Séance de stratégie">
@@ -798,13 +834,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal">
           <div class="service-number">01</div>
           <h3>Transformer la crise en opportunité</h3>
-          <p>Les périodes de turbulence sont souvent les meilleurs moments pour repenser en profondeur son positionnement et créer une dynamique nouvelle. Nous accompagnons vos équipes dirigeantes à lire la crise comme un signal stratégique.</p>
+          <p>Concevoir un plan de transformation et d'adaptation sur mesure pour une situation donnée.</p>
           <ul class="service-bullets">
-            <li>Diagnostic des enjeux et cartographie des risques</li>
-            <li>Identification des leviers de rebond prioritaires</li>
-            <li>Mobilisation des parties prenantes clés</li>
-            <li>Construction d'un plan d'action opérationnel</li>
-            <li>Suivi et ajustements en temps réel</li>
+            <li>Immersion terrain : comprendre le travail réel, les personnes et les dynamiques organisationnelles.</li>
+            <li>Mobilisation collective : aligner les équipes autour des forces existantes, comprendre les causes racines des problématiques, faire émerger une vision claire.</li>
+            <li>Déploiement opérationnel : déployer des plans d'action concrets, suivis et ajustés dans la durée.</li>
           </ul>
         </div>
         <div class="service-photo reveal reveal-delay-2">
@@ -820,13 +854,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal reveal-delay-2">
           <div class="service-number">02</div>
           <h3>Définir un plan stratégique</h3>
-          <p>Un plan stratégique efficace n'est pas un document — c'est un processus de mobilisation. Nous co-construisons avec vous une feuille de route claire, partagée et engageante pour toutes les parties prenantes.</p>
+          <p>Construire une vision stratégique partagée et la traduire en un plan opérationnel concret à moyen terme.</p>
           <ul class="service-bullets">
-            <li>Ateliers de vision collective avec les dirigeants</li>
-            <li>Analyse des forces, contraintes et opportunités</li>
-            <li>Priorisation des axes stratégiques</li>
-            <li>Déclinaison en plans opérationnels par équipe</li>
-            <li>Indicateurs de pilotage et rituels de suivi</li>
+            <li>Analyser la période écoulée pour objectiver les forces, les faiblesses et les enseignements clés.</li>
+            <li>Définir des axes stratégiques clairs à développer, partagés par les différentes parties prenantes.</li>
+            <li>Décliner la stratégie en projets opérationnels et en plans d'action concrets, co-construits et ajustés de façon itérative.</li>
           </ul>
         </div>
       </div>
@@ -836,13 +868,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal">
           <div class="service-number">03</div>
           <h3>Conduire les changements</h3>
-          <p>Le changement ne se décrète pas, il se construit. Nous accompagnons les équipes tout au long de la transformation en créant les conditions d'un changement durable, ancré dans les réalités du terrain.</p>
+          <p>Accompagner l'organisation dans l'adaptation maîtrisée de son fonctionnement face à des transformations majeures (acquisition, réglementaire, refonte d'organisation, etc.).</p>
           <ul class="service-bullets">
-            <li>Cartographie des acteurs et des résistances</li>
-            <li>Design du dispositif d'accompagnement</li>
-            <li>Formation des managers relais du changement</li>
-            <li>Communication interne et rituels d'engagement</li>
-            <li>Mesure de l'adoption et ajustements continus</li>
+            <li>Analyse des impacts : anticiper les effets humains, organisationnels et opérationnels du changement à venir.</li>
+            <li>Co-construction du plan : définir collectivement une trajectoire de changement claire et réaliste.</li>
+            <li>Déploiement et pilotage : accompagner la mise en œuvre, suivre l'adoption et ajuster en continu.</li>
           </ul>
         </div>
         <div class="service-photo reveal reveal-delay-2">
@@ -866,7 +896,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <footer><div class="container"><div class="footer-inner">
-    <div class="footer-logo">NOV<span class="accent">I</span>JI</div>
+    <div class="footer-logo">NOVIJI</div>
     <div class="footer-links">
       <button class="footer-link" onclick="navigate('home')">Accueil</button>
       <button class="footer-link" onclick="navigate('innovation')">Innovation</button>
@@ -889,7 +919,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div>
           <div class="page-hero-tag">Domaine d'expertise</div>
           <h1 class="display"><span class="serif-italic">Innovation</span></h1>
-          <p>Structurer, co-construire, piloter. Nous aidons les organisations à développer des capacités d'innovation durables et à transformer les idées en réalités opérationnelles.</p>
+          <p>Nous aidons les organisations à structurer leur démarche d'innovation, de l'émergence des premières idées jusqu'au déploiement de projets concrets.</p>
         </div>
         <div class="page-hero-photo reveal reveal-delay-2">
           <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=960&q=80&fit=crop" alt="Innovation et créativité">
@@ -904,12 +934,12 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal">
           <div class="service-number">01</div>
           <h3>Structurer des dispositifs innovation</h3>
-          <p>L'innovation ne peut pas être improvisée. Elle nécessite une gouvernance claire, des ressources dédiées et un cadre méthodologique adapté à votre culture organisationnelle.</p>
+          <p>Concevoir avec vous des parcours et des organisations d'innovation adaptés à chaque contexte, sur la base de méthodes éprouvées.</p>
           <ul class="service-bullets">
-            <li>Clarification des objectifs et du périmètre d’innovation</li>
-            <li>Définition des rôles, rituels et modes de décision</li>
-            <li>Choix et adaptation de méthodes éprouvées</li>
-            <li>Indicateurs de performance et revues régulières</li>
+            <li>Clarification des objectifs et du périmètre d'innovation.</li>
+            <li>Définition des rôles, des rituels et des modes de décision.</li>
+            <li>Choix et adaptation de méthodes éprouvées.</li>
+            <li>Mise en place d'un cadre simple, lisible et actionnable.</li>
           </ul>
         </div>
         <div class="service-photo reveal reveal-delay-2">
@@ -925,12 +955,12 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal reveal-delay-2">
           <div class="service-number">02</div>
           <h3>Co-construire les innovations</h3>
-          <p>De l'idée au déploiement, nous assurons le pilotage de vos projets d'innovation les plus complexes, en combinant rigueur méthodologique et adaptabilité.</p>
+          <p>Aider l'organisation à construire une vision stratégique partagée et à la traduire en un plan opérationnel concret à moyen terme.</p>
           <ul class="service-bullets">
-            <li>Immersion utilisateur et identification des opportunités</li>
-            <li>Ateliers d’idéation et priorisation des pistes les plus prometteuses</li>
-            <li>Construction de prototypes et tests utilisateurs rapides</li>
-            <li>Élaboration d’une feuille de route vers des solutions opérationnelles</li>
+            <li>Immersion et observations terrain.</li>
+            <li>Identification des irritants et opportunités clés.</li>
+            <li>Ateliers d'idéation et prototypage rapide.</li>
+            <li>Tests terrain et itérations.</li>
           </ul>
         </div>
       </div>
@@ -940,13 +970,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal">
           <div class="service-number">03</div>
           <h3>Accompagner des projets</h3>
-          <p>De l'idée au déploiement, nous assurons le pilotage de vos projets d'innovation les plus complexes, en combinant rigueur méthodologique et adaptabilité.</p>
+          <p>Accompagner l'organisation dans l'adaptation maîtrisée de son fonctionnement face à des transformations majeures.</p>
           <ul class="service-bullets">
-            <li>Cadrage et définition du périmètre projet</li>
-            <li>Pilotage agile avec des jalons court terme</li>
-            <li>Gestion des risques et identification des signaux faibles</li>
-            <li>Reporting et communication aux décideurs</li>
-            <li>Transfert de compétences en fin de mission</li>
+            <li>Accompagnement des porteurs de projets.</li>
+            <li>Aide à la prise de décision dans des contextes incertains.</li>
+            <li>Soutien opérationnel pour faire avancer concrètement les projets.</li>
           </ul>
         </div>
         <div class="service-photo reveal reveal-delay-2">
@@ -970,11 +998,12 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <footer><div class="container"><div class="footer-inner">
-    <div class="footer-logo">NOV<span class="accent">I</span>JI</div>
+    <div class="footer-logo">NOVIJI</div>
     <div class="footer-links">
       <button class="footer-link" onclick="navigate('home')">Accueil</button>
       <button class="footer-link" onclick="navigate('strategy')">Stratégie</button>
       <button class="footer-link" onclick="navigate('training')">Formation</button>
+      <button class="footer-link" onclick="navigate('about')">À propos</button>
       <button class="footer-link" onclick="navigate('contact')">Contact</button>
     </div>
     <div class="footer-copy">© 2025 NOVIJI</div>
@@ -992,7 +1021,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div>
           <div class="page-hero-tag">Domaine d'expertise</div>
           <h1 class="display"><span class="serif-italic">Formation</span></h1>
-          <p>Transmettre les méthodes, développer les compétences, former les facilitateurs. Nous croyons que l'autonomie est la meilleure des transformations.</p>
+          <p>Nous concevons et animons des formations pratiques dédiées à l'innovation, à la conduite du changement et à l'efficacité opérationnelle.</p>
         </div>
         <div class="page-hero-photo reveal reveal-delay-2">
           <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=960&q=80&fit=crop" alt="Formation et apprentissage">
@@ -1007,12 +1036,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal">
           <div class="service-number">01</div>
           <h3>Cours & conférences</h3>
-          <p>Des interventions adaptées à vos équipes, pour explorer les enjeux clés de l'innovation, de la conduite du changement ou de la durabilité.</p>
+          <p>Interventions interactives et sur mesure pour explorer des sujets clés tels que l'innovation en contexte d'incertitude, la conduite du changement ou la durabilité.</p>
           <ul class="service-bullets">
-            <li>Formats variés de conférences, cours keynotes et e-learning</li>
-            <li>Cours sur les méthodologies d'innovation</li>
-            <li>Approche participative avec échanges, Q/R, études de cas concrets</li>
-            <li>Parcours pédagogiques sur mesure pour dirigeants, managers, équipes projets</li
+            <li>Formats adaptés à vos publics, de la conférence inspirante au module approfondi.</li>
+            <li>Contenus ancrés dans les réalités de transformation des organisations.</li>
+            <li>Interventions conçues pour transmettre des repères concrets et actionnables.</li>
           </ul>
         </div>
         <div class="service-photo reveal reveal-delay-2">
@@ -1028,12 +1056,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal reveal-delay-2">
           <div class="service-number">02</div>
           <h3>Ateliers d'idéation</h3>
-          <p>Ateliers pratiques pour expérimenter une méthode de résolution de problèmes en travaillant sur des enjeux réels.Une expérience de collaboration intense et productive.</p>
+          <p>Ateliers pratiques pour expérimenter une méthode de résolution de problèmes en travaillant sur des enjeux réels.</p>
           <ul class="service-bullets">
-            <li>Utilisation de méthodes éprouvées (Design Thinking, Creative Problem Solving, etc.)</li>
-            <li>Ateliers conçus autour de vos problématiques métiers ou organisationnelles.</li>
-            <li>Plans d’action détaillés, priorisation des idées, recommandations pour le passage à l’échelle.</li>
-            <li>Explication et appropriation des outils utilisés, pour autonomiser vos équipes sur le long terme.</li>
+            <li>Ateliers conçus pour produire rapidement des idées actionnables.</li>
+            <li>Mise en mouvement des équipes autour de défis concrets.</li>
+            <li>Cadres de travail simples, engageants et adaptés au terrain.</li>
           </ul>
         </div>
       </div>
@@ -1043,12 +1070,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="service-content reveal">
           <div class="service-number">03</div>
           <h3>Apprendre à faciliter</h3>
-          <p>Former vos propres facilitateurs internes est l'un des investissements les plus durables pour une organisation. Nous transmettons nos méthodes et créons des relais pérennes.</p>
+          <p>Formation immersive (1,5 jour) pour acquérir les clés de la facilitation, entre apports méthodologiques et mise en pratique.</p>
           <ul class="service-bullets">
-            <li>Posture, techniques d’animation, gestion des dynamiques de groupe.</li>
-            <li>Mise en situation avec simulation d’ateliers et feedbacks individualisés</li>
-            <li>Méthodes pour concevoir et animer des ateliers.</li>
-            <li>Gestion des dynamiques de groupe complexes</li>
+            <li>Appropriation des postures et outils fondamentaux de facilitation.</li>
+            <li>Alternance de théorie, démonstrations et exercices pratiques.</li>
+            <li>Montée en compétence rapide pour animer des collectifs de travail.</li>
           </ul>
         </div>
         <div class="service-photo reveal reveal-delay-2">
@@ -1072,11 +1098,12 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <footer><div class="container"><div class="footer-inner">
-    <div class="footer-logo">NOV<span class="accent">I</span>JI</div>
+    <div class="footer-logo">NOVIJI</div>
     <div class="footer-links">
       <button class="footer-link" onclick="navigate('home')">Accueil</button>
       <button class="footer-link" onclick="navigate('strategy')">Stratégie</button>
       <button class="footer-link" onclick="navigate('innovation')">Innovation</button>
+      <button class="footer-link" onclick="navigate('about')">À propos</button>
       <button class="footer-link" onclick="navigate('contact')">Contact</button>
     </div>
     <div class="footer-copy">© 2025 NOVIJI</div>
@@ -1100,7 +1127,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
     <div class="container">
       <div class="founder-grid">
         <div class="founder-photo-wrap reveal">
-          <img src="https://leterrien.fr/wp-content/uploads/2022/11/Prunelle.jpg" alt="Flavie Rollin, fondatrice de NOVIJI">
+          <img src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?w=800&q=80&fit=crop" alt="Flavie Rollin, fondatrice de NOVIJI">
           <div class="founder-name-tag">
             <strong>Flavie Rollin</strong>
             <span>Fondatrice de NOVIJI</span>
@@ -1110,7 +1137,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
           <div class="section-label">Fondatrice</div>
           <h2>Flavie Rollin</h2>
           <p>Flavie débute sa carrière comme <strong>intrapreneure</strong> en créant une offre d'assurance innovante au sein d'un grand groupe. Cette expérience fondatrice lui donne une compréhension unique des défis auxquels font face les innovateurs en milieu corporatif.</p>
-          <p>Elle fonde ensuite <strong>NOVIJI</strong> pour accompagner les organisations confrontées à des enjeux de transformation et d'innovation complexes, avec une philosophie simple : partir de l'existant, avancer par petits pas, et toujours construire avec les acteurs concernés.</p>
+          <p>Elle fonde ensuite <strong>NOVIJI</strong> pour accompagner les organisations confrontées à des enjeux de transformation et d'innovation complexes — avec une philosophie simple : partir de l'existant, avancer par petits pas, et toujours construire avec les acteurs concernés.</p>
           <p>Son approche allie rigueur stratégique, créativité méthodologique et profonde écoute des réalités terrain.</p>
           <div class="skill-tags">
             <span class="skill-tag" style="background:var(--blue-dim);color:var(--blue);">Stratégie d'entreprise</span>
@@ -1129,16 +1156,16 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
       <div class="reveal">
         <div class="section-label">Notre ADN</div>
         <h2 class="display">Notre approche</h2>
-        <p style="color:var(--ink2);max-width:520px;font-weight:300;line-height:1.75;margin-top:16px;">Cinq principes fondateurs qui guident chaque mission.</p>
+        <p style="color:var(--ink2);max-width:520px;font-weight:300;line-height:1.75;margin-top:16px;">Cinq principes fondateurs qui guident chaque mission et garantissent des résultats durables.</p>
       </div>
       <div class="principles-grid">
         <div class="principle-card reveal reveal-delay-1">
           <div class="principle-num">01</div>
-          <p>Partir de l'existant, du réel</p>
+          <p>Partir de l'existant</p>
         </div>
         <div class="principle-card reveal reveal-delay-2">
           <div class="principle-num">02</div>
-          <p>Avancer par engagements graduels</p>
+          <p>Avancer par engagements progressifs</p>
         </div>
         <div class="principle-card reveal reveal-delay-3">
           <div class="principle-num">03</div>
@@ -1170,7 +1197,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <footer><div class="container"><div class="footer-inner">
-    <div class="footer-logo">NOV<span class="accent">I</span>JI</div>
+    <div class="footer-logo">NOVIJI</div>
     <div class="footer-links">
       <button class="footer-link" onclick="navigate('home')">Accueil</button>
       <button class="footer-link" onclick="navigate('strategy')">Stratégie</button>
@@ -1276,10 +1303,11 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <footer><div class="container"><div class="footer-inner">
-    <div class="footer-logo">NOV<span class="accent">I</span>JI</div>
+    <div class="footer-logo">NOVIJI</div>
     <div class="footer-links">
       <button class="footer-link" onclick="navigate('home')">Accueil</button>
       <button class="footer-link" onclick="navigate('about')">À propos</button>
+      <button class="footer-link" onclick="navigate('contact')">Contact</button>
     </div>
     <div class="footer-copy">© 2025 NOVIJI — Tous droits réservés</div>
   </div></div></footer>
@@ -1329,7 +1357,7 @@ function initReveal() {
 
 // ── HERO STAGGER ──
 function staggerHero() {
-  const elems = document.querySelectorAll('#page-home .hero .hero-badge, #page-home .hero h1, #page-home .hero .hero-sub, #page-home .hero .hero-actions, #page-home .hero .hero-stats');
+  const elems = document.querySelectorAll('#page-home .hero h1, #page-home .hero .hero-sub, #page-home .hero .hero-actions, #page-home .hero .hero-stats');
   elems.forEach((el, i) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(22px)';
