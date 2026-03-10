@@ -73,13 +73,13 @@ nav.scrolled {
   display: flex; align-items: center; justify-content: space-between;
   max-width: 1160px; margin: 0 auto; padding: 0 36px;
 }
-.nav-logo {
+nav-logo {
   font-family: 'Fraunces', serif;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1.5rem;
   color: var(--blue);
   cursor: pointer;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
   text-decoration: none;
   transition: opacity 0.2s;
 }
@@ -518,7 +518,17 @@ textarea.form-input { resize: vertical; }
 /* ── FOOTER ── */
 footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-.footer-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.3rem; color: var(--blue); letter-spacing: 0.01em; }
+footer-logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--blue);
+  letter-spacing: 0.005em;
+}
+  .nav-logo .accent,
+.footer-logo .accent {
+  color: var(--orange);
+}
 .footer-links { display: flex; gap: 4px; flex-wrap: wrap; }
 .footer-link {
   font-size: 0.84rem; color: var(--ink3); padding: 6px 12px; border-radius: 8px;
@@ -586,7 +596,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
 <!-- ── NAV ── -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a class="nav-logo" onclick="navigate('home')" href="#">NOVIJI</a>
+    <a class="nav-logo" onclick="navigate('home')" href="#">NOV<span class="accent">I</span>JI</a>
     <div class="nav-links">
       <button class="nav-link" onclick="navigate('home')">Accueil</button>
       <button class="nav-link" onclick="navigate('strategy')">Stratégie</button>
@@ -921,7 +931,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <footer><div class="container"><div class="footer-inner">
-    <div class="footer-logo">NOVIJI</div>
+    <a class="nav-logo" onclick="navigate('home')" href="#">NOV<span class="accent">I</span>JI</a>
     <div class="footer-links">
       <button class="footer-link" onclick="navigate('home')">Accueil</button>
       <button class="footer-link" onclick="navigate('innovation')">Innovation</button>
@@ -1023,7 +1033,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <footer><div class="container"><div class="footer-inner">
-    <div class="footer-logo">NOVIJI</div>
+    <div class="footer-logo">NOV<span class="accent">I</span>JI</div>
     <div class="footer-links">
       <button class="footer-link" onclick="navigate('home')">Accueil</button>
       <button class="footer-link" onclick="navigate('strategy')">Stratégie</button>
