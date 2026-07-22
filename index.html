@@ -241,11 +241,8 @@ nav.scrolled {
 
 /* ── SECTION LABEL ── */
 .section-label {
-  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.13em;
-  text-transform: uppercase; color: var(--orange);
-  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  display: none;
 }
-.section-label::before { content: ''; width: 22px; height: 2px; background: var(--orange); border-radius: 2px; }
 
 /* ── CLIENTS ── */
 .clients { padding: 72px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); overflow: hidden; }
@@ -724,7 +721,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   <section class="section" id="expertise-home">
     <div class="container">
       <div class="reveal">
-        <div class="section-label">Domaines d'expertise</div>
+        <div class="section-label">section-label</div>
         <h2 class="display">Ce que nous faisons</h2>
       </div>
       <div class="expertise-grid">
