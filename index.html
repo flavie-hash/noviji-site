@@ -832,19 +832,22 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         <div class="contact-block reveal">
           <h2>Parlons de vos projets<br>de transformation</h2>
           <p>Prenons le temps d'un échange pour explorer ensemble comment NOVIJI peut vous accompagner.</p>
-          <form class="contact-form-inline" onsubmit="handleInlineContact(event)">
+          <form class="contact-form-inline" action="https://formspree.io/f/mkjwdjdo" method="POST">
             <div class="contact-row">
-              <input class="contact-input" type="text" placeholder="Votre nom" required>
-              <input class="contact-input" type="email" placeholder="Votre email" required>
+              <input class="contact-input" type="text" name="nom" placeholder="Votre nom" required>
+              <input class="contact-input" type="email" name="email" placeholder="Votre email" required>
             </div>
-            <textarea class="contact-input" placeholder="Décrivez votre projet ou votre besoin..."></textarea>
+            <textarea class="contact-input" name="message" placeholder="Décrivez votre projet ou votre besoin..." required></textarea>
             <div>
-              <button class="btn-orange" type="submit">
-                Envoyer le message
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-              </button>
-            </div>
-          </form>
+    <button class="btn-orange" type="submit">
+      Envoyer le message
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </button>
+  </div>
+
+</form>
         </div>
       </div>
     </div>
@@ -1303,22 +1306,22 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
         </div>
 
         <div class="reveal reveal-delay-2">
-          <form class="contact-form-white" onsubmit="handleContact(event)">
+          <form class="contact-form-white" action="https://formspree.io/f/mkjwdjdo" method="POST">
             <div>
               <label class="form-label">Votre nom</label>
-              <input class="form-input" type="text" placeholder="Prénom Nom" required>
+              <input class="form-input" type="text" name="nom" placeholder="Prénom Nom" required>
             </div>
             <div>
               <label class="form-label">Email</label>
-              <input class="form-input" type="email" placeholder="vous@organisation.fr" required>
+              <input class="form-input" type="email" name="email" placeholder="vous@organisation.fr" required>
             </div>
             <div>
               <label class="form-label">Organisation</label>
-              <input class="form-input" type="text" placeholder="Votre entreprise ou organisation">
+              <input class="form-input" type="text" name="organisation" placeholder="Votre entreprise ou organisation">
             </div>
             <div>
               <label class="form-label">Domaine d'intérêt</label>
-              <select class="form-select">
+              <select class="form-select" name="domaine">
                 <option>Stratégie & Organisation</option>
                 <option>Innovation</option>
                 <option>Formation</option>
@@ -1327,7 +1330,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
             </div>
             <div>
               <label class="form-label">Votre message</label>
-              <textarea class="form-input" rows="5" placeholder="Décrivez votre situation, votre défi ou votre projet..." required></textarea>
+              <textarea class="form-input" name="message" rows="5" placeholder="Décrivez votre situation, votre défi ou votre projet..." required></textarea>
             </div>
             <button class="btn-primary" type="submit" style="width:100%;justify-content:center;padding:15px 24px;">
               <span id="contact-btn-text">Envoyer le message</span>
@@ -1405,30 +1408,6 @@ function staggerHero() {
       el.style.transform = 'translateY(0)';
     }, 120 + i * 100);
   });
-}
-
-// ── CONTACT FORMS ──
-function handleInlineContact(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('button[type=submit]');
-  const orig = btn.innerHTML;
-  btn.innerHTML = '✓ Message envoyé !';
-  btn.style.background = '#22C55E';
-  setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; e.target.reset(); }, 3200);
-}
-function handleContact(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('button[type=submit]');
-  const txt = document.getElementById('contact-btn-text');
-  btn.disabled = true;
-  txt.textContent = '✓ Message envoyé !';
-  btn.style.background = '#22C55E';
-  setTimeout(() => {
-    btn.disabled = false;
-    txt.textContent = 'Envoyer le message';
-    btn.style.background = '';
-    e.target.reset();
-  }, 3200);
 }
 
 // ── INIT ──
