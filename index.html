@@ -317,29 +317,242 @@ nav.scrolled {
 }
 .expertise-card:hover .expertise-arrow { opacity: 1; transform: translateX(0); }
 
-/* ── TESTIMONIALS ── */
-.testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 52px; }
-.testimonial-card {
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 22px; padding: 36px;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-}
-.testimonial-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-.testimonial-quote {
-  font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
-  font-size: 1.02rem; color: var(--ink2); line-height: 1.75; margin-bottom: 28px;
-}
-.testimonial-quote::before { content: '\201C'; color: var(--blue); font-size: 2.8rem; line-height: 0.5; vertical-align: -0.65rem; margin-right: 3px; font-style: normal; }
-.testimonial-author { display: flex; align-items: center; gap: 14px; }
-.testimonial-avatar {
-  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--blue), var(--orange));
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Fraunces', serif; font-weight: 800; font-size: 0.82rem; color: white;
-}
-.testimonial-name { font-weight: 600; font-size: 0.88rem; color: var(--ink); }
-.testimonial-role { font-size: 0.78rem; color: var(--ink3); margin-top: 2px; }
+/* ── TESTIMONIALS — accordéon horizontal ── */
 
+.testimonials-section {
+  background: var(--bg2);
+  padding: 80px 0 100px;
+  overflow: hidden;
+}
+
+.testi-row {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 52px;
+}
+
+.testi-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  overflow: hidden;
+  flex: 0 0 118px;
+  min-width: 118px;
+  padding: 26px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition:
+    flex-basis 0.55s var(--ease),
+    min-width 0.55s var(--ease),
+    padding 0.5s var(--ease),
+    box-shadow 0.3s,
+    border-color 0.3s;
+}
+
+.testi-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(46,42,184,0.2);
+}
+
+.testi-card.is-open {
+  flex: 1 1 560px;
+  min-width: 380px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  padding: 38px 42px;
+  cursor: default;
+  box-shadow: var(--shadow-lg);
+}
+
+.testi-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.testi-card.is-open .testi-header {
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: 16px;
+}
+
+.testi-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid var(--bg2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  transition:
+    width 0.5s var(--ease),
+    height 0.5s var(--ease);
+}
+
+.testi-card.is-open .testi-avatar {
+  width: 72px;
+  height: 72px;
+}
+
+.testi-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.testi-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.testi-card.is-open .testi-names {
+  align-items: flex-start;
+}
+
+.testi-first {
+  font-weight: 500;
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+
+.testi-last {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.testi-card.is-open .testi-first,
+.testi-card.is-open .testi-last {
+  font-size: 0.98rem;
+}
+
+.testi-role {
+  display: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--ink3);
+  margin-top: 4px;
+}
+
+.testi-card.is-open .testi-role {
+  display: block;
+}
+
+.testi-logo-mini {
+  margin-top: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  color: var(--ink3);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.testi-card.is-open .testi-logo-mini {
+  display: none;
+}
+
+.testi-quote {
+  display: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.18rem;
+  color: var(--ink2);
+  line-height: 1.65;
+  margin-top: 26px;
+}
+
+.testi-card.is-open .testi-quote {
+  display: block;
+}
+
+.testi-logo-full {
+  display: none;
+  margin-top: 24px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--blue);
+}
+
+.testi-card.is-open .testi-logo-full {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .testi-row {
+    gap: 12px;
+  }
+
+  .testi-card {
+    flex: 0 0 92px;
+    min-width: 92px;
+    padding: 20px 10px;
+  }
+
+  .testi-card.is-open {
+    flex: 1 1 100%;
+    min-width: 240px;
+    padding: 32px 26px;
+  }
+}
+
+@media (max-width: 600px) {
+  .testi-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .testi-card {
+    flex: 0 0 auto;
+    width: calc(25% - 8px);
+    min-width: 0;
+    padding: 16px 6px;
+  }
+
+  .testi-card.is-open {
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    padding: 28px 20px;
+    order: -1;
+  }
+
+  .testi-first,
+  .testi-last {
+    font-size: 0.72rem;
+  }
+
+  .testi-logo-mini {
+    font-size: 0.62rem;
+  }
+
+  .testi-quote {
+    font-size: 1.05rem;
+  }
+}
 /* ── PHOTO GALLERY ── */
 .photo-gallery {
   display: grid; grid-template-columns: 1fr 1fr 1fr;
@@ -563,7 +776,6 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   .hero-photos { display: none; }
   .hero-stats { gap: 28px; }
   .expertise-grid { grid-template-columns: 1fr; }
-  .testimonials-grid { grid-template-columns: 1fr; }
   .service-grid { grid-template-columns: 1fr; gap: 40px; }
   .service-grid.reverse { direction: ltr; }
   .service-photo { display: none; }
@@ -773,46 +985,157 @@ footer { border-top: 1px solid var(--border); padding: 48px 0 32px; }
   </section>
 
   <!-- Testimonials -->
-  <section class="section" style="background:var(--bg2); padding-top:80px;">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label">Témoignages</div>
-        <h2 class="display">Ce qu'ils en disent</h2>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card reveal reveal-delay-1">
-          <p class="testimonial-quote">NOVIJI nous a aidés à transformer une période de crise en véritable opportunité stratégique. L'accompagnement a été rigoureux et humain.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">D</div>
-            <div>
-              <div class="testimonial-name">Directeur</div>
-              <div class="testimonial-role">Groupe industriel</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card reveal reveal-delay-2">
-          <p class="testimonial-quote">Une approche singulière : partir de l'existant, impliquer les équipes, avancer par étapes. Le résultat est un plan d’action que nos collaborateurs ont vraiment envie de mettre en œuvre.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">DT</div>
-            <div>
-              <div class="testimonial-name">Directrice Transformation</div>
-              <div class="testimonial-role">Mutuelle</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial-card reveal reveal-delay-3">
-          <p class="testimonial-quote">La formation-action animée par Flavie a transformé la façon dont nos managers abordent l'incertitude. Un investissement dont nous voyons encore les effets.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">DRH</div>
-            <div>
-              <div class="testimonial-name">DRH</div>
-              <div class="testimonial-role">ETI industrielle</div>
-            </div>
-          </div>
-        </div>
-      </div>
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+
+    <div class="reveal">
+      <h2 class="display">Ce qu'ils en disent</h2>
     </div>
-  </section>
+
+    <div class="testi-row reveal" id="testiRow">
+
+      <!-- Emmanuelle -->
+      <article class="testi-card" tabindex="0">
+        <div class="testi-header">
+          <div class="testi-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=80&fit=crop&crop=faces"
+              alt="Portrait temporaire"
+            >
+          </div>
+
+          <div class="testi-names">
+            <span class="testi-first">Emmanuelle</span>
+            <span class="testi-last">NAVE</span>
+            <div class="testi-role">Directrice Transformation, GLB</div>
+          </div>
+        </div>
+
+        <div class="testi-logo-mini">GLB</div>
+
+        <p class="testi-quote">
+          « Nous avons apprécié la capacité de Flavie à entrer dans nos problématiques,
+          à s'approprier finement les sujets pour ensuite faire des propositions de valeur
+          ciblées et pertinentes qui nous ont permis de nous mettre en action !
+          Nous avons maintenant une feuille de route pluriannuelle opérante
+          et à la hauteur de notre ambition.<br><br>
+          Merci ! »
+        </p>
+
+        <div class="testi-logo-full">GLB</div>
+      </article>
+
+
+      <!-- Sylvain -->
+      <article class="testi-card" tabindex="0">
+        <div class="testi-header">
+          <div class="testi-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80&fit=crop&crop=faces"
+              alt="Portrait temporaire"
+            >
+          </div>
+
+          <div class="testi-names">
+            <span class="testi-first">Sylvain</span>
+            <span class="testi-last">DUISIT</span>
+            <div class="testi-role">Directeur R&D, Pellenc ST</div>
+          </div>
+        </div>
+
+        <div class="testi-logo-mini">Pellenc ST</div>
+
+        <p class="testi-quote">
+          « J'ai beaucoup apprécié l'approche et la méthode que NOVIJI a mise en œuvre
+          pour m'accompagner à structurer le futur de ma direction.<br><br>
+
+          L'agilité dont Flavie a fait preuve avec les changements de cible en cours
+          de projet ont été un atout. Enfin ce que je considère comme étant un point clé,
+          a été la capacité de Flavie à analyser la situation de manière extrêmement
+          pertinente en ayant pris en compte l'environnement de l'entreprise.
+
+          Les échanges que nous avons eu à l'issue des ateliers réalisés avec mes N-1
+          m'ont permis également de challenger ma vision et de mener une évolution
+          dans les meilleures conditions. »
+        </p>
+
+        <div class="testi-logo-full">Pellenc ST</div>
+      </article>
+
+
+      <!-- Remy -->
+      <article class="testi-card" tabindex="0">
+        <div class="testi-header">
+          <div class="testi-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80&fit=crop&crop=faces"
+              alt="Portrait temporaire"
+            >
+          </div>
+
+          <div class="testi-names">
+            <span class="testi-first">Remy</span>
+            <span class="testi-last">CHATAGNON</span>
+            <div class="testi-role">Directeur SI, AHSM</div>
+          </div>
+        </div>
+
+        <div class="testi-logo-mini">AHSM</div>
+
+        <p class="testi-quote">
+          « Flavie nous a permis d'aller bien au-delà d'un groupe de travail classique :
+          les échanges ont été très stimulants ; la méthode proposée nous a permis
+          d'aboutir à une solution concrète et simple à mettre en œuvre,
+          que nous n'aurions probablement pas identifiée seuls.
+
+          Nous avons été impressionnés par la qualité de l'animation,
+          la capacité à rentrer dans les sujets pourtant très spécifiques,
+          à comprendre nos points de frictions, à recadrer et faire progresser le groupe.
+
+          C'est avec plaisir que je recommande les services de NOVIJI. »
+        </p>
+
+        <div class="testi-logo-full">AHSM</div>
+      </article>
+
+
+      <!-- Romain -->
+      <article class="testi-card" tabindex="0">
+        <div class="testi-header">
+          <div class="testi-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80&fit=crop&crop=faces"
+              alt="Portrait temporaire"
+            >
+          </div>
+
+          <div class="testi-names">
+            <span class="testi-first">Romain</span>
+            <span class="testi-last">CHAGUE</span>
+            <div class="testi-role">Responsable Innovation, Groupama</div>
+          </div>
+        </div>
+
+        <div class="testi-logo-mini">Groupama</div>
+
+        <p class="testi-quote">
+          « NOVIJI nous accompagne sur plusieurs sujets d'innovation,
+          notamment dans la structuration de notre parcours intrapreneurial
+          et dans l'accompagnement des projets.
+
+          Flavie a une vraie capacité à comprendre rapidement les enjeux,
+          à challenger les équipes et à apporter le juste niveau de méthode
+          pour faire avancer les projets.
+
+          Au fil des missions, NOVIJI a su faire ses preuves à nos côtés
+          et s'imposer comme un partenaire de confiance de premier plan. »
+        </p>
+
+        <div class="testi-logo-full">Groupama</div>
+      </article>
+    </div>
+  </div>
+</section>
 
   <!-- Gallery + Contact -->
   <section class="section">
@@ -1636,11 +1959,48 @@ function staggerHero() {
     }, 120 + i * 100);
   });
 }
+// ── TESTIMONIALS ──
+function initTestimonials() {
+  const row = document.getElementById('testiRow');
 
+  if (!row) return;
+
+  const cards = Array.from(row.querySelectorAll('.testi-card'));
+
+  if (!cards.length) return;
+
+  function openCard(target) {
+    cards.forEach(card => {
+      card.classList.toggle('is-open', card === target);
+    });
+  }
+
+  cards.forEach(card => {
+
+    card.addEventListener('click', () => {
+      if (!card.classList.contains('is-open')) {
+        openCard(card);
+      }
+    });
+
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openCard(card);
+      }
+    });
+
+  });
+
+  // Première carte ouverte par défaut
+  openCard(cards[0]);
+}
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   staggerHero();
   initReveal();
+  initTestimonials();
+
   window.addEventListener('scroll', () => initReveal(), { passive: true });
 });
 </script>
