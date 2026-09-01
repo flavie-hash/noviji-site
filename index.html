@@ -475,13 +475,33 @@ nav.scrolled {
 
 .testi-quote {
   display: none;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-style: normal;
   font-weight: 400;
-  font-size: 1.18rem;
+
+  font-size: 0.96rem;
+  line-height: 1.78;
+
   color: var(--ink2);
-  line-height: 1.65;
+
   margin-top: 26px;
+  padding-top: 20px;
+
+  max-width: 620px;
+
+  position: relative;
+}
+.testi-quote::before {
+  content: "“";
+  position: absolute;
+  top: -18px;
+  left: -2px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--blue);
 }
 
 .testi-card.is-open .testi-quote {
